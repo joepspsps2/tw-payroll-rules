@@ -1,0 +1,37 @@
+# 每月檢查年度表齊不齊（公開 repo，GitHub Actions 不計費）。只檢查，不寫回 main。
+#
+# 官方只有新聞稿、法條、PDF，不自動下載。這支看「結果」：
+#   今年不在表裡或還有 pending、12 月起明年不在表裡、日支表沒確認今年（12 月起＝明年）適用哪一版 → 這次執行標紅。
+# 標紅時：維護者照 README「每年怎麼更新」查官方公告、改表、開 PR。
+# 怎麼知道資料有沒有在更新：看 status.json 的 checkedOn，不看這支流程的成敗。
+# 時間：每月 1 日 02:17 UTC（台北 10:17）。漏跑沒關係，下次照樣全量檢查。
+name: 每月檢查年度表
+
+on:
+  schedule:
+    - cron: '17 2 1 * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: 檢查年度表
+        run: |
+          set +e
+          node scripts/check-years.mjs > out.txt
+          rc=$?
+          set -e
+          cat out.txt
+          { echo "### 年度表檢查"; cat out.txt; } >> "$GITHUB_STEP_SUMMARY"
+          exit $rc

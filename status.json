@@ -1,0 +1,23 @@
+{
+  "checkedOn": "2026-11-24",
+  "dataDate": "2026-11-24",
+  "years": [
+    2026,
+    2027
+  ],
+  "pending": {
+    "2027": [
+      "salaryStart",
+      "nhiRate",
+      "nhiAvgDependents",
+      "nhiSupplementRate"
+    ]
+  },
+  "perDiemEditions": [
+    "2026-01-01",
+    "2027-01-01"
+  ],
+  "perDiemCheckedFor": 2027,
+  "source": "勞動部、勞保局、財政部、健保署、行政院主計總處公告與法條（每格出處見 src/data/years.json 的 cite；日支表見 src/data/per-diem-overseas.json）",
+  "note": "官方沒有機器可讀檔，不自動下載；每年保鮮檢查看年度齊不齊（scripts/check-years.mjs）"
+}

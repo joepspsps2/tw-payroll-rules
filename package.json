@@ -1,0 +1,81 @@
+{
+  "name": "@joelincc/tw-payroll-rules",
+  "version": "0.1.0",
+  "description": "台灣薪資與費用的年度法定數字＋算法：基本工資、扣繳、二代健保補充保費、勞健保勞退費率、國內外出差日支。每年一列、每格附政府公告出處與資料日期。Taiwan payroll & expense statutory rates by year, with official sources.",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./years": {
+      "types": "./dist/years.d.ts",
+      "default": "./dist/years.js"
+    },
+    "./withholding": {
+      "types": "./dist/withholding.d.ts",
+      "default": "./dist/withholding.js"
+    },
+    "./insurance": {
+      "types": "./dist/insurance.d.ts",
+      "default": "./dist/insurance.js"
+    },
+    "./per-diem": {
+      "types": "./dist/per-diem.d.ts",
+      "default": "./dist/per-diem.js"
+    },
+    "./data/years.json": "./dist/data/years.json",
+    "./data/per-diem-overseas.json": "./dist/data/per-diem-overseas.json",
+    "./package.json": "./package.json"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "status.json"
+  ],
+  "sideEffects": false,
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "rm -rf dist && tsc -p tsconfig.build.json",
+    "test": "node --test --experimental-strip-types tests/*.test.ts && node scripts/check-years.mjs --status-only && node .public-gate/clean-scan.mjs",
+    "check-years": "node scripts/check-years.mjs",
+    "prepublishOnly": "npm test && npm run build",
+    "clean-scan": "node .public-gate/clean-scan.mjs",
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": [
+    "taiwan",
+    "payroll",
+    "withholding-tax",
+    "labor-insurance",
+    "national-health-insurance",
+    "minimum-wage",
+    "per-diem",
+    "基本工資",
+    "扣繳",
+    "二代健保",
+    "勞保",
+    "健保",
+    "勞退",
+    "日支"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joepspsps2/tw-payroll-rules.git"
+  },
+  "homepage": "https://github.com/joepspsps2/tw-payroll-rules#readme",
+  "bugs": "https://github.com/joepspsps2/tw-payroll-rules/issues",
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "@types/node": "22.20.5",
+    "typescript": "5.9.3"
+  }
+}
